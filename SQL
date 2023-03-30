@@ -1,0 +1,138 @@
+CREATE DATABASE  IF NOT EXISTS `MikesBikes` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `MikesBikes`;
+-- MySQL dump 10.13  Distrib 5.7.36, for Linux (x86_64)
+--
+-- Host: 127.0.0.1    Database: MikesBikes
+-- ------------------------------------------------------
+-- Server version	5.7.36
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `cust_id` int(11) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `tel` varchar(20) DEFAULT NULL,
+  `street` varchar(50) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `state` char(2) NOT NULL,
+  `p_code` varchar(25) NOT NULL,
+  `sales` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (141,'Nelson','Susana','4155351450','577 Strong St.','San Rafael','CA','97562',215500.00),(157,'Leong','Kelvan','2175551555','756 Pompton St.','Allantown','PA','70267',10600.00),(161,'Nelson','Susana','6505566809','9208 Furth Circle','Burlingame','NY','94217',84605.00),(168,'Franconaut','Keith','2035597845','1439 Spinnaker Dr.','New Haven','CT','97823',825.00),(173,'Tsengin','Jerry','6175528555','4358 Baden Av.','Cambridge','MA','51247',4340.00),(175,'Kingsman','Julie','2035552539','2593 South Bay Ln.','NYC','NY','97562',84300.00),(181,'Blane','Michael','2125522500','2618 Kingston Rd.','NYC','NY','10022',76400.00),(198,'Tayler','Leslie','6175888428','16780 Pompton St.','Bricks','MA','58339',23022.00),(204,'Barag','Miguel','6175557529','695 Spinnaker St.','Brickhaven','NY','58339',68750.00);
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orderdetails`
+--
+
+DROP TABLE IF EXISTS `orderdetails`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orderdetails` (
+  `orderNo` int(11) NOT NULL,
+  `product_id` varchar(15) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `orderLineNumber` smallint(6) NOT NULL,
+  PRIMARY KEY (`orderNo`,`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orderdetails`
+--
+
+LOCK TABLES `orderdetails` WRITE;
+/*!40000 ALTER TABLE `orderdetails` DISABLE KEYS */;
+INSERT INTO `orderdetails` VALUES (10100,'109',22,75.46,1),(10101,'108',25,108.06,1),(10101,'109',26,167.06,2),(10102,'109',41,43.13,1),(10103,'108',42,119.67,1),(10103,'109',27,121.64,2),(10104,'108',50,55.09,2);
+/*!40000 ALTER TABLE `orderdetails` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `orders` (
+  `orderNumber` int(11) NOT NULL,
+  `orderDate` date NOT NULL,
+  `status` varchar(15) NOT NULL,
+  `customerNumber` int(11) NOT NULL,
+  PRIMARY KEY (`orderNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (10103,'2003-02-07','Shipped',157),(10104,'2003-02-01','Rejected',141),(10108,'2003-03-03','Shipped',204),(10115,'2003-04-12','Shipped',157),(10146,'2003-09-03','Shipped',204),(10151,'2003-09-21','Shipped',161),(10152,'2003-09-25','Shipped',161),(10154,'2003-10-02','Backorder',175),(10157,'2003-10-14','Shipped',198),(10158,'2003-10-15','Shipped',175),(10160,'2003-10-17','Return',168),(10225,'2004-02-24','Shipped',168),(10226,'2004-02-26','Shipped',168),(10227,'2004-03-02','Shipped',204),(10228,'2004-03-10','Shipped',173),(10229,'2004-03-11','Pending',124),(10231,'2004-03-19','Shipped',204),(10232,'2004-03-20','Pending',175);
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `productID` int(11) NOT NULL,
+  `productName` varchar(45) DEFAULT NULL,
+  `productCategory` int(4) DEFAULT NULL,
+  PRIMARY KEY (`productID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (108,'Pro Mountain Jaguar X2',1001),(109,'Junior Street Kicks',1002);
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-03-21 14:39:29
